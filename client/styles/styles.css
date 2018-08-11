@@ -5,16 +5,22 @@ body {
     font-family: arial, sans-serif;
 }
 
-#main, #chats {
+#main, #chats, #send, #chat-rooms {
     width: 500px;
     margin: auto;
     text-align: left;
     background: white;
     padding: 50px 60px;
     border: solid #ddd;
-    border-width: 0 1px 1px 1px;
+    border-width: 1px;
 }
 
+#refresh-btn {
+  margin: 20px 0;
+  padding: 10px;
+  border: solid dodgerblue;
+  border-radius: 3px;   
+ }
 #main h1 {
     margin-top: 0;
     font-size: 35px;
@@ -84,7 +90,14 @@ form input[type=text] {
 }
 
 .friend {
-    color: #fff;
-    background-color: #0090da;
+    /*color: #fff;
+    background-color: #0090da;*/
+    font-weight: bold;
 }
 
+.message {
+    margin: 20px 0;
+    padding: 10px;
+    border: solid black;
+    border-radius: 5px;
+}
