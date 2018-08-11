@@ -3,7 +3,13 @@ var app = {
 
   init: function () {
     $('#send').on('submit', app.handleSubmit);
+    app.currentUserName = window.location.search.split('=')[1];
+    console.log(app.currentUserName);
   },
+
+  currentRoomName: 'Default Room',
+
+  currentUserName: null,
 
   send: function (message) {
     $.ajax({
@@ -23,20 +29,22 @@ var app = {
   },
 
   fetch: function () {
-    $.ajax({
-      // This is the url you should use to communicate with the parse API server.
-      url: 'http://parse.sfm8.hackreactor.com/chatterbox/classes/messages',
-      type: 'GET',
-      data: JSON.stringify(message),
-      contentType: 'application/json',
-      success: function (data) {
-        console.log('chatterbox: Message sent');
-      },
-      error: function (data) {
-        // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
-        console.error('chatterbox: Failed to send message', data);
-      }
-    });
+    var fetchedData = $.get('http://parse.sfm8.hackreactor.com/chatterbox/classes/messages?order=-createdAt');
+    console.log(fetchedData);
+    // $.ajax({
+    //   // This is the url you should use to communicate with the parse API server.
+    //   url: 'http://parse.sfm8.hackreactor.com/chatterbox/classes/messages',
+    //   type: 'GET',
+    //   data: data,
+    //   contentType: 'application/json',
+    //   success: function (data) {
+    //     console.log('chatterbox: messages fetched');
+    //   },
+    //   error: function (data) {
+    //     // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
+    //     console.error('chatterbox: Failed to fetch messages', data);
+    //   }
+    // });
   },
 
   server: 'http://parse.sfm8.hackreactor.com/chatterbox/classes/messages',
@@ -60,6 +68,7 @@ var app = {
 
   handleRooms: function() {
     var roomName = $('#roomSelect option:selected').text();
+    app.currentRoomName = roomName;
     if (roomName === 'Add a room!') {
       var newRoom = prompt('GIMME NAME!');
       app.renderRoom(newRoom);
@@ -74,6 +83,14 @@ var app = {
     e.preventDefault();
     var text = $('#text').val();
     console.log(text);
+    var newMessage = {
+      username: app.currentUserName,
+      text: text,
+      roomname: app.currentRoomName
+    };
+    app.send(newMessage);
+    // submit shoudl call refresh method
+    console.log(newMessage);
   },
 };
 
