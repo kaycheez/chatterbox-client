@@ -31,17 +31,18 @@
     </div>
     <div id="chat-rooms">
         Room:
-      <select id="roomSelect" name="room-dropdown">
+      <select id="roomSelect" name="room-dropdown" onChange="app.handleRooms()">
+        <!-- have a new room option, on select we call a function  -->
+        <option>Default room</option>
+        <option>Add a room!</option>
       </select> 
+    </form>
     </div>  
-    <form id="send"> 
-      <div>
-        <input id="message" type="text" name="message" placeholder="Type message here">
-        <input class="submit" type="submit" value="Send">
-      </div>
-    </form> 
+    <form id="send" method="post">
+      <input type="text" name="text" id="text"/>
+      <input type="submit" name="submit" class="submit"/>
+    </form>
     <div id="chats">
-
     </div>
   </body>
 </html>
